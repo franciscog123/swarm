@@ -1,0 +1,35 @@
+version: '3.4'
+
+services:
+  app:
+    image: guerrerof/triviagame:mvc
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        order: start-first
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 8
+    ports:
+      - 9100:80
+  theapi:
+    image: guerrerof/triviagame:part1
+    deploy:
+      replicas: 1
+    ports:
+      - 9000:80
+  theng:
+    image: guerrerof/triviagame:ng
+    deploy:
+      replicas: 1
+    ports:
+      - 9200:80
