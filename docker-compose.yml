@@ -32,4 +32,4 @@ services:
     deploy:
       replicas: 1
     ports:
-      - 9200:80
+      - 9200:4200
